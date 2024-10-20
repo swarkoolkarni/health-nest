@@ -8,7 +8,7 @@ import {
   NavItem,
 } from "reactstrap";
 import { AccountCircleOutlined } from "@material-ui/icons";
-import Body from "./Body";
+import { AppContainer } from "./Container";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         <Collapse navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/components/">Feed</NavLink>
+              <NavLink href="/">Feed</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="">Communities</NavLink>
@@ -45,7 +45,7 @@ function App() {
           <AccountCircleOutlined style={{ fontSize: 40 }} />
         </Collapse>
       </Navbar>
-      <Body />
+      <AppContainer />
     </div>
   );
 }

@@ -1,10 +1,9 @@
 import React from "react";
-import { Row, Col, Card, CardBody } from "reactstrap";
+import { Row, Col, Card, CardBody, Button } from "reactstrap";
+import { AccountCircleOutlined, DeleteOutline } from "@material-ui/icons";
 
-import { AccountCircleOutlined, MoreVert } from "@material-ui/icons";
-
-export default function Posts({ data }) {
-  console.log(data);
+export const Posts = ({ data, deletePost }) => {
+  
   return data !== null && data.length > 0 ? (
     data.map((post) => (
       <div
@@ -12,7 +11,7 @@ export default function Posts({ data }) {
           paddingTop: 15,
         }}
       >
-        <Card style={{ padding: 10 }}>
+        <Card outline color="secondary" style={{ padding: 10 }}>
           <Row style={{ alignItems: "center" }}>
             <Col md={1} lg={1}>
               <div style={{ textAlign: "center" }}>
@@ -25,7 +24,9 @@ export default function Posts({ data }) {
               <small>{post.relation}</small>
             </Col>
             <Col md={1} lg={1}>
-              <MoreVert />
+              <Button onClick={() => deletePost(post.id)}>
+                <DeleteOutline />
+              </Button>
             </Col>
           </Row>
           <CardBody>{post.description}</CardBody>

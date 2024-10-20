@@ -12,7 +12,8 @@ import {
   PollOutlined,
 } from "@material-ui/icons";
 import Modal from "./Modal";
-import Posts from "./components/Posts";
+import {Posts} from "./components/Posts";
+import { Library } from "./components/Library";
 
 const actionList = [
   {
@@ -46,7 +47,7 @@ const buttons = [
   "Treatment",
 ];
 
-function Body() {
+export const AppContainer = () => {
   const [isPostClicked, setPostClicked] = useState(false);
   const [posts, setPosts] = useState(null);
   const [label, setLabel] = useState("All Post");
@@ -71,18 +72,24 @@ function Body() {
 
   const handleClickTopic = (label) => {
     setLabel(label);
-    const data = posts.filter((post) =>
+    const data = posts?.filter((post) =>
       post.topics.some((val) => val === label)
     );
     setFilteredPosts(data);
   };
 
+  const deletePost = (id) => {
+    const filtered = posts.filter(post => post.id !== id);
+    setPosts(filtered);
+    window.localStorage.setItem("posts", JSON.stringify(filtered));
+  }
+
   return (
-    <div style={{ padding: 20, backgroundColor: "#e7e7e7" }}>
+    <div style={{ height: window.innerHeight, padding: 20, backgroundColor: "#e7e7e7" }}>
       <Container fluid="md">
         <Row>
           <Col md={4} lg={4}>
-            <Card>
+            <Card outline color="secondary">
               <div style={{ padding: 10 }}>
                 <Row>
                   <Col md={3} lg={3}>
@@ -98,21 +105,11 @@ function Body() {
               </div>
             </Card>
             <hr />
-            <p>Library</p>
-            <div>
-              <ul style={{ paddingLeft: 0, listStyleType: "none" }}>
-                {actionList.map((item) => (
-                  <li key={item.index} style={{ paddingBottom: 10 }}>
-                    {item.icon}
-                    {item.action}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Library actionList={actionList} />
           </Col>
           <Col md={8} lg={8}>
             <div>
-              <Card>
+              <Card outline color="secondary">
                 <div style={{ padding: 10 }}>
                   <Row style={{ padding: 10, alignItems: "center" }}>
                     <Col
@@ -180,6 +177,7 @@ function Body() {
                       variant={item === label ? "contained" : "outlined"}
                       color={item === label ? "primary" : "default"}
                       style={{ borderRadius: 15 }}
+                      disabled={posts === null}
                       onClick={() => handleClickTopic(item)}
                     >
                       {item}
@@ -188,7 +186,7 @@ function Body() {
                 ))}
               </Row>
             </div>
-            <Posts data={label === "All Post" ? posts : filteredPosts} />
+            <Posts data={label === "All Post" ? posts : filteredPosts} deletePost={deletePost} />
           </Col>
         </Row>
       </Container>
@@ -201,4 +199,3 @@ function Body() {
   );
 }
 
-export default Body;
