@@ -6,13 +6,14 @@ import {
   Nav,
   NavLink,
   NavItem,
+  NavbarBrand,
 } from "reactstrap";
 import { AccountCircleOutlined } from "@material-ui/icons";
 import { AppContainer } from "./Container";
 
 function App() {
   return (
-    <div className="container-fluid">
+    <div>
       <Navbar
         expand="md"
         light
@@ -24,20 +25,24 @@ function App() {
         <Collapse navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/">Feed</NavLink>
+              <NavLink href="/">
+                <b>Feed</b>
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="">Communities</NavLink>
+              <NavLink href="">
+                <b>Communities</b>
+              </NavLink>
             </NavItem>
           </Nav>
-          <div class="mx-auto">
+          <NavbarBrand className="mx-auto">
             <a href="#" className="navbar-brand">
-              HealthNest
+              <b>Health-Nest</b>
             </a>
-          </div>
+          </NavbarBrand>
           <form className="form-inline my-2 my-lg-0">
             <input
-              className="form-control mr-sm-2"
+              className="form-control mr-sm-2 br-2"
               type="search"
               placeholder="Search"
             />
