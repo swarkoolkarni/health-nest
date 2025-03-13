@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Button from "@material-ui/core/Button";
@@ -56,7 +56,13 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function Modal({ isPostClicked, handleClick, getAllPosts }) {
+export default function Modal({
+  isPostClicked,
+  handleClick,
+  getAllPosts,
+  tagType,
+}) {
+  console.log(tagType);
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
   const theme = useTheme();
@@ -64,8 +70,12 @@ export default function Modal({ isPostClicked, handleClick, getAllPosts }) {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    setValue(tagType);
+  }, [tagType]);
+
   const handleClose = () => {
-    handleClick();
+    handleClick(0);
     setPersonName([]);
   };
 
